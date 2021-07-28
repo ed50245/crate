@@ -295,7 +295,6 @@ task generateLicenseNotes() {
     licenseReport {
         outputDir = "${project.rootDir}/buildSrc/build/reports/licenses"
         renderers = [new InventoryMarkdownReportRenderer("3RD-PARTY-NOTICES.md")]
-        filters = [new LicenseBundleNormalizer()]
     }
 
     task createReport(type: Copy) {

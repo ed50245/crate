@@ -329,6 +329,7 @@ public class RelationAnalyzer extends DefaultTraversalVisitor<AnalyzedRelation, 
 
         ExpressionAnalysisContext expressionAnalysisContext = context.expressionAnalysisContext();
         expressionAnalysisContext.windows(node.getWindows());
+        expressionAnalysisContext.setErrorOnUnknownObjectKey(statementContext.sessionContext().errorOnUnknownObjectKey());
 
         SelectAnalysis selectAnalysis = SelectAnalyzer.analyzeSelectItems(
             node.getSelect().getSelectItems(),

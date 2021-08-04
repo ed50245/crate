@@ -406,7 +406,7 @@ public class DocTableInfo implements TableInfo, ShardedTable, StoredTable {
     }
 
     @Nullable
-    public DynamicReference getDynamic(ColumnIdent ident, boolean forWrite) {
+    public DynamicReference getDynamic(ColumnIdent ident, boolean isDynamicObjectOperation) {
         boolean parentIsIgnored = false;
         ColumnPolicy parentPolicy = columnPolicy();
         int position = 0;
@@ -431,10 +431,10 @@ public class DocTableInfo implements TableInfo, ShardedTable, StoredTable {
 
         switch (parentPolicy) {
             case DYNAMIC:
-                if (!forWrite) return null;
+                if (!isDynamicObjectOperation) return null;
                 break;
             case STRICT:
-                if (forWrite) throw new ColumnUnknownException(ident.sqlFqn(), ident());
+                if (isDynamicObjectOperation) throw new ColumnUnknownException(ident.sqlFqn(), ident());
                 return null;
             case IGNORED:
                 parentIsIgnored = true;

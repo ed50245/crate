@@ -677,6 +677,9 @@ public class ExpressionAnalyzer {
                     try {
                         Symbol base = fieldProvider.resolveField(qualifiedName, List.of(), operation);
                         if (base instanceof Reference) {
+                            if (context.errorOnUnknownObjectKey() == false) {
+                                return fieldProvider.resolveField(qualifiedName, parts, Operation.READ_UNKNOWN);
+                            }
                             throw e;
                         }
                         return allocateFunction(

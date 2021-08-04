@@ -1329,16 +1329,6 @@ public class SelectStatementAnalyzerTest extends CrateDummyClusterServiceUnitTes
     }
 
     @Test
-    public void testMatchOnDynamicColumn() throws Exception {
-        var executor = SQLExecutor.builder(clusterService)
-            .addTable(TableDefinitions.USER_TABLE_DEFINITION)
-            .build();
-        expectedException.expect(ColumnUnknownException.class);
-        expectedException.expectMessage("Column details['me_not_exizzt'] unknown");
-        executor.analyze("select * from users where match(details['me_not_exizzt'], 'Arthur Dent')");
-    }
-
-    @Test
     public void testMatchPredicateInResultColumnList() throws Exception {
         var executor = SQLExecutor.builder(clusterService)
             .addTable(TableDefinitions.USER_TABLE_DEFINITION)

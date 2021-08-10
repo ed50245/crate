@@ -169,7 +169,14 @@ public class SubscriptFunction extends Scalar<Object, Object[]> {
         if (element == null || index == null) {
             return null;
         }
-        return lookup.apply(element, index);
+        try {
+            return lookup.apply(element, index);
+        } catch (IllegalArgumentException e) {
+            if (e.getMessage().contains("does not contain the key") && txnCtx.sessionSettings().errorOnUnknownObjectKey() == false) {
+                return null;
+            }
+            throw e;
+        }
     }
 
     static Object lookupIntoListObjectsByName(Object base, Object name) {

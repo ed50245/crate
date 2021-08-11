@@ -69,7 +69,7 @@ public class DocTableRelation extends AbstractTableRelation<DocTableInfo> {
         if (reference == null) {
             reference = tableInfo.indexColumn(column);
             if (reference == null) {
-                return tableInfo.getDynamic(column, Operation.DYNAMIC_OBJECT_OPERATIONS.contains(operation));
+                return tableInfo.getDynamic(column, operation == Operation.INSERT || operation == Operation.UPDATE);
             }
         }
         return reference;

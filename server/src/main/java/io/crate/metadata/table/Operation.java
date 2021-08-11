@@ -34,7 +34,6 @@ import java.util.Set;
 
 public enum Operation {
     READ("READ"),
-    READ_UNKNOWN("READ_UNKNOWN"),
     UPDATE("UPDATE"),
     INSERT("INSERT"),
     DELETE("DELETE"),
@@ -62,8 +61,6 @@ public enum Operation {
         ALTER_BLOCKS, ALTER_REROUTE, SHOW_CREATE, REFRESH, OPTIMIZE, COPY_TO, CREATE_SNAPSHOT);
     public static final EnumSet<Operation> METADATA_DISABLED_OPERATIONS = EnumSet.of(READ, UPDATE, INSERT, DELETE,
         ALTER_BLOCKS, ALTER_OPEN_CLOSE, ALTER_REROUTE, REFRESH, SHOW_CREATE, OPTIMIZE);
-    public static final EnumSet<Operation> DYNAMIC_OBJECT_OPERATIONS = EnumSet.of(
-        Operation.UPDATE, Operation.INSERT, Operation.READ_UNKNOWN);
 
     private final String representation;
 

@@ -22,6 +22,7 @@
 package io.crate.expression.scalar;
 
 import io.crate.data.Input;
+import io.crate.exceptions.ObjectKeyUnknownException;
 import io.crate.expression.symbol.Function;
 import io.crate.expression.symbol.Literal;
 import io.crate.expression.symbol.Symbol;
@@ -136,8 +137,8 @@ public class SubscriptObjectFunction extends Scalar<Object, Map<String, Object>>
             }
             try {
                 mapValue = SubscriptFunction.lookupByName(mapValue, args[i].value());
-            } catch (IllegalArgumentException e) {
-                if (e.getMessage().contains("does not contain the key") && txnCtx.sessionSettings().errorOnUnknownObjectKey() == false) {
+            } catch (ObjectKeyUnknownException e) {
+                if (txnCtx.sessionSettings().errorOnUnknownObjectKey() == false) {
                     return null;
                 }
                 throw e;

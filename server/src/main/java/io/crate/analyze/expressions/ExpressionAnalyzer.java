@@ -43,6 +43,8 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import io.crate.exceptions.ObjectKeyUnknownException;
+import io.crate.types.ObjectType;
 import org.joda.time.Period;
 
 import io.crate.analyze.DataTypeAnalyzer;
@@ -676,7 +678,11 @@ public class ExpressionAnalyzer {
                     }
                     try {
                         Symbol base = fieldProvider.resolveField(qualifiedName, List.of(), operation);
-                        if (base instanceof Reference && context.errorOnUnknownObjectKey()) {
+                        if (base instanceof Reference baseRef) {
+                            if (baseRef.valueType().id() == ObjectType.ID && context.errorOnUnknownObjectKey()) {
+                                // at this point parts != null and size > 0
+                                throw new ObjectKeyUnknownException(base.toString(), parts.get(0));
+                            }
                             throw e;
                         }
                         return allocateFunction(

@@ -127,7 +127,7 @@ public class SessionSettingRegistry {
                      SessionContext::setErrorOnUnknownObjectKey,
                      s -> Boolean.toString(s.errorOnUnknownObjectKey()),
                      () -> String.valueOf(true),
-                     "Controls the outcome to be a null or an error when accessing object types with an unknown key.",
+                     "Raises or suppresses ObjectKeyUnknownException when querying nonexistent keys to dynamic objects.",
                      DataTypes.BOOLEAN));
 
         for (var providers : sessionSettingProviders) {

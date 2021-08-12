@@ -26,6 +26,7 @@ import io.crate.exceptions.AmbiguousColumnException;
 import io.crate.exceptions.ColumnUnknownException;
 import io.crate.exceptions.DuplicateKeyException;
 import io.crate.exceptions.InvalidSchemaNameException;
+import io.crate.exceptions.ObjectKeyUnknownException;
 import io.crate.exceptions.RelationAlreadyExists;
 import io.crate.exceptions.RelationUnknown;
 import io.crate.exceptions.SQLExceptions;
@@ -84,6 +85,8 @@ public class PGError {
         } else if (throwable instanceof RelationUnknown) {
             status = PGErrorStatus.UNDEFINED_TABLE;
         } else if (throwable instanceof ColumnUnknownException) {
+            status = PGErrorStatus.UNDEFINED_COLUMN;
+        } else if (throwable instanceof ObjectKeyUnknownException) {
             status = PGErrorStatus.UNDEFINED_COLUMN;
         } else if (throwable instanceof RelationAlreadyExists) {
             status = PGErrorStatus.DUPLICATE_TABLE;

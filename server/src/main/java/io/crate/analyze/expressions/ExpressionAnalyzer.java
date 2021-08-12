@@ -680,8 +680,7 @@ public class ExpressionAnalyzer {
                         Symbol base = fieldProvider.resolveField(qualifiedName, List.of(), operation);
                         if (base instanceof Reference baseRef) {
                             if (baseRef.valueType().id() == ObjectType.ID && context.errorOnUnknownObjectKey()) {
-                                // at this point parts != null and size > 0
-                                throw new ObjectKeyUnknownException(base.toString(), parts.get(0));
+                                throw new ObjectKeyUnknownException(e.getMessage());
                             }
                             throw e;
                         }

@@ -21,6 +21,7 @@
 
 package io.crate.expression.scalar;
 
+import io.crate.exceptions.ObjectKeyUnknownException;
 import io.crate.expression.symbol.Literal;
 import org.junit.Test;
 
@@ -55,7 +56,7 @@ public class SubscriptObjectFunctionTest extends ScalarTestCase {
 
     @Test
     public void testSubscriptOnObjectLiteralWithNonExistingKey() throws Exception {
-        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expect(ObjectKeyUnknownException.class);
         assertEvaluate("subscript_obj(obj, 'y')", 10L, Literal.of(Map.of("x", 10L)));
     }
 

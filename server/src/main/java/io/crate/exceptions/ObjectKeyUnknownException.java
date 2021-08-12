@@ -27,5 +27,9 @@ public class ObjectKeyUnknownException extends ResourceUnknownException implemen
     public ObjectKeyUnknownException(String base, String key) {
         super("The object `" + base + "` does not contain the key `" + key + "`");
     }
+
+    public ObjectKeyUnknownException(String message) {
+        super(message);
+    }
 }
 
